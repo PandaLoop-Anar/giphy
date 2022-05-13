@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 80vw;
+    margin: 0 auto;
+}
+
+header {
+    border-bottom: 1px solid #212529;
+}
+.header-section h1{
+    text-align: center;
+    margin: 10px;
+}
+.shortcut-btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shortcut-btns .shortcut-btn{
+    margin: 5px;
+    padding: 3px 7px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    background-color: rgb(239, 239, 239);
+    cursor: pointer;
+}
+.shortcut-btn:hover{
+    border-color: #17a3b844;
+}
+
+.search-bar{
+    margin: 5px 0 20px;
+}
+.search_form{
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search_form input{
+    margin: 0 10px;
+    padding: 2px 5px;
+    width: 30%;
+}
+.search_form button{
+    margin: 0 10px;
+    padding: 4px 10px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    color: white;
+}
+
+#submitBtn{
+    background-color: #28a745;
+}
+#submitBtn:hover{
+    background-color: #218838;
+    border: 2px solid #99ecac86;
+}
+#trendingBtn{
+    background-color: #dc3545;
+}
+#trendingBtn:hover{
+    background-color: #c82333;
+}
+
+    /* gifs section */
+
+.gif-items{
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: row wrap;
+}
+.gif-item{
+    width: 30%;
+    border: 1px solid black;
+    background-color: white;
+}
+.gif-rating{
+    padding: 10px;
+    text-align: center;
+}
