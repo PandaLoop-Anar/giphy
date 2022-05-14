@@ -1,96 +1,91 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// import { base } from "./common/base.js";
+import { gifItems } from "./modules/gifs.module.js";
+import { shortcutBtnsBlock } from "./modules/shortcutBtns.module.js";
+import { queryURL, params } from "./config/config.js";
 
-.container{
-    width: 80vw;
-    margin: 0 auto;
-}
+const idOfshortcutBtnsContainer = document.getElementById("shortcut-btns");
+const idOfGifItemsContainer = document.getElementById("gifs_container");
+const trendingBtn = document.getElementById("trendingBtn");
 
-header {
-    border-bottom: 1px solid #212529;
-}
-.header-section h1{
-    text-align: center;
-    margin: 10px;
-}
-.shortcut-btns{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.shortcut-btns .shortcut-btn{
-    margin: 5px;
-    padding: 3px 7px;
-    border: 2px solid transparent;
-    border-radius: 3px;
-    background-color: rgb(239, 239, 239);
-    cursor: pointer;
-}
-.shortcut-btn:hover{
-    border-color: #17a3b844;
-}
+const shortcutBtnsData = [
+  "Internet cats",
+  "Meme's",
+  "Typing",
+  "Space",
+  "Rick and Morty",
+];
 
-.search-bar{
-    margin: 5px 0 20px;
-}
-.search_form{
-    width: 100%;
-    height: 50px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search_form input{
-    margin: 0 10px;
-    padding: 2px 5px;
-    width: 30%;
-}
-.search_form button{
-    margin: 0 10px;
-    padding: 4px 10px;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    font-size: 16px;
-}
+const mainShortcutBtnsBlock = new shortcutBtnsBlock(
+  idOfshortcutBtnsContainer,
+  shortcutBtnsData
+);
+mainShortcutBtnsBlock.render();
 
-#submitBtn{
-    background-color: #28a745;
-}
-#submitBtn:hover{
-    background-color: #218838;
-}
-#trendingBtn{
-    background-color: #dc3545;
-}
-#trendingBtn:hover{
-    background-color: #c82333;
-}
+//
+const gifData = [
+  {
+    url: "https://media2.giphy.com/media/13GIgrGdslD9oQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&amp;rid=200w.gif&amp;ct=g",
+    title: "Jim Carrey Reaction GIF",
+    rating: "g",
+  },
+  {
+    url: "https://media4.giphy.com/media/yPRo73ILrGjny/200w.gif?cid=ecf05e47k3yy80za3h5inhi3px5dg9mvpui4q3l364nkh377&rid=200w.gif&ct=g",
+    title: "3 gif",
+    rating: "g",
+  },
+  {
+    url: "https://media1.giphy.com/media/ule4vhcY1xEKQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&rid=200w.gif&ct=g",
+    title: "Typing Gif",
+    rating: "g",
+  },
+  {
+    url: "https://media2.giphy.com/media/13GIgrGdslD9oQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&amp;rid=200w.gif&amp;ct=g",
+    title: "Jim Carrey Reaction GIF",
+    rating: "g",
+  },
+  {
+    url: "https://media1.giphy.com/media/ule4vhcY1xEKQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&rid=200w.gif&ct=g",
+    title: "Typing Gif",
+    rating: "g",
+  },
+  {
+    url: "https://media4.giphy.com/media/yPRo73ILrGjny/200w.gif?cid=ecf05e47k3yy80za3h5inhi3px5dg9mvpui4q3l364nkh377&rid=200w.gif&ct=g",
+    title: "3 gif",
+    rating: "g",
+  },
+  {
+    url: "https://media1.giphy.com/media/ule4vhcY1xEKQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&rid=200w.gif&ct=g",
+    title: "Typing Gif",
+    rating: "g",
+  },
+  {
+    url: "https://media2.giphy.com/media/13GIgrGdslD9oQ/200w.gif?cid=ecf05e471tts6w2vsl3dqeda3dswxd136oo40r161csxxeqo&amp;rid=200w.gif&amp;ct=g",
+    title: "Jim Carrey Reaction GIF",
+    rating: "g",
+  },
+  {
+    url: "https://giphy.com/gifs/lfc-mane-sadio-RItkHp0JbHg6ZhkbHI",
+    title: "3 gif",
+    rating: "g",
+  },
+];
 
-    /* gifs section */
+trendingBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const promiseOfGifs = fetch(`${queryURL}trending?`, {
+    method: "GET",
+    headers: params,
+    // body: stringify(callData)
+  });
 
-.gif-items{
-    width: 100%;
-    margin: 25px auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: flex-start ;
-    flex-flow: row wrap;
-    gap: 10px;
-}
-.gif-item{
-    border: 1px solid black;
-    background-color: white;
-    vertical-align: baseline;
-}
-.gif img{
-    height: 200px;
-}
-.gif-rating{
-    padding: 10px;
-    text-align: center;
-}
+  promiseOfGifs
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      console.log(json);
+
+      const mainGifItems = new gifItems(idOfGifItemsContainer, json);
+      mainGifItems.render();
+    });
+});
