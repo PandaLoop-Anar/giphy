@@ -20,3 +20,4 @@ export class shortcutBtnsBlock extends base {
     this.setHtmlContent(content);
   }
 }
+
