@@ -1,38 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giphy API</title>
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./responsive.style.css">
-    <script type="module" src="./index.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <div class="container">
-        <div class="header-section">
-          <h1>Giphy API Example</h1>
-          <div class="shortcut-btns" id="shortcut-btns">
-            <!-- <div class="shortcut-btn">Typing</div> -->
-          </div>
-          <div class="search-bar">
-            <form action="#" method="get" class="search_form">
-              <input type="text" name="searchedValue" id="searchedValue" />
-              <button type="submit" id="submitBtn">Submit</button>
-              <button id="trendingBtn">See what's trending</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="container">
-        <div class="gif-items" id="gifs_container">
-          <!--  -->
-        </div>
-      </div>
-    </main>
-  </body>
-</html>
+import { shortcutBtnsBlock } from "./modules/shortcutBtns.module.js";
+import { queryURL, params } from "./config/config.js";
+import { fetchingGifsFromAPI } from "./common/fetchingAPI.js";
+
+const idOfshortcutBtnsContainer = document.getElementById("shortcut-btns");
+const idOfGifItemsContainer = document.getElementById("gifs_container");
+const shortcutBtns = document.querySelectorAll("div.shortcut-btns");
+const trendingBtn = document.getElementById("trendingBtn");
+const submitBtn = document.getElementById("submitBtn");
+
+// shortcut btns
+const shortcutBtnsData = [
+  "Internet cats",
+  "Meme's",
+  "Typing",
+  "Space",
+  "Rick and Morty",
+];
+
+const mainShortcutBtnsBlock = new shortcutBtnsBlock(
+  idOfshortcutBtnsContainer,
+  shortcutBtnsData
+);
+mainShortcutBtnsBlock.render();
+
+const activatingShortcutBtns = () => {
+  for (let shortcutBtn of shortcutBtns[0].children) {
+    shortcutBtn.addEventListener("click", (e) => {
+      // Fetching
+      fetchingGifsFromAPI(
+        idOfGifItemsContainer,
+        `${queryURL}search?q=${shortcutBtn.textContent}&limit=${params.limit}&api_key=${params.api_key}&fmt=${params.fmt}`
+      );
+    });
+  }
+};
+activatingShortcutBtns();
+
+// Submit btn
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const searchedValue = document.getElementById("searchedValue");
+  let existsBtn = false;
+  if (searchedValue.value !== "") {
+    // Adding only new values to shortcutBtnsData array
+    for (let shortcutBtnValue of shortcutBtnsData) {
+      if (shortcutBtnValue === searchedValue.value) {
+        existsBtn = true;
+      }
+    }
+    if (existsBtn === false) {
+      shortcutBtnsData.push(searchedValue.value);
+    }
+    // Fetching
+    fetchingGifsFromAPI(
+      idOfGifItemsContainer,
+      `${queryURL}search?q=${searchedValue.value}&limit=${params.limit}&api_key=${params.api_key}&fmt=${params.fmt}`
+    );
+    // Deleting first value of shortcutBtnsData array
+    if (shortcutBtnsData.length > 6) {
+      shortcutBtnsData.shift();
+    }
+    // Rendering shortcutBtnsBlock, activating them
+    mainShortcutBtnsBlock.render();
+    activatingShortcutBtns();
+    // Cleaning input value
+    searchedValue.value = "";
+  }
+});
+
+// Trending btn
+trendingBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  // Fetching
+  fetchingGifsFromAPI(
+    idOfGifItemsContainer,
+    `${queryURL}trending?limit=${params.limit}&api_key=${params.api_key}&fmt=${params.fmt}`
+  );
+});
