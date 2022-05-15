@@ -11,7 +11,7 @@ export class gifItems extends base {
         return `
         <div class="gif-item">
             <div class="gif">
-            <img src="${obj.url}" alt="${obj.title}" >
+            <img src="${obj.images.original.url}" alt="${obj.title}" >
             </div>
             <div class="gif-rating">
               <span>Rating: ${obj.rating}</span>
