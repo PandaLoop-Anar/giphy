@@ -8,8 +8,6 @@ export const fetchingGifsFromAPI = (idOfContainer, API) => {
       return res.json();
     })
     .then((json) => {
-    //   console.log(json);
-
       const mainGifItems = new gifItems(idOfContainer, json.data);
       mainGifItems.render();
     });
