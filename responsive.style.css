@@ -1,0 +1,20 @@
+
+@media only screen and (max-width: 425px) {
+    .container{
+        width: 95vw;
+    }
+    .search_form{
+        height: auto;
+    }
+    .search_form input{
+        width: 85%;
+    }
+    .search_form button{
+        margin: 5px 5px;
+    }
+    .gif img{
+        width: 90vw;
+        height: auto;
+    }
+
+}
